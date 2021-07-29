@@ -7,4 +7,4 @@
 4. This Data Can be Loaded Later from Python For Training
 
 ## Contributors
-- [Ryguy-1](www.github.com/Ryguy-1)
+- [Ryguy-1](https://github.com/Ryguy-1)
