@@ -9,7 +9,7 @@ public class GenerateData {
     Random random = new Random();
 
     // Plays out games randomly and saves every position bitboard only to an ArrayList
-    // ArrayList structure = [[[Board, board,...], [0=cap, 1=lc, 2=stalemate]], ...]
+    // ArrayList structure = [[[Board, board,...], [2=cap, 0=lc, 1=stalemate]], ...]
     ArrayList<ArrayList<ArrayList<Long[]>>> results = new ArrayList<>();
     //         games    boards for game/results
     private int numGames = 0;
@@ -17,8 +17,8 @@ public class GenerateData {
     private final int stalemateNumMoves = 300;
 
     //private final static String serialLocation = "Results\\results.ser";
-    private final static String serialSaveVariable = "Results\\results"; //add #.ser for save number (batch saves)
-    private final int numPerBatch = 500;
+    private final static String serialSaveVariable = "Results0-2\\results"; //add #.ser for save number (batch saves) // was "Results\\results"
+    private final int numPerBatch = 500; //was 500
 
     GenerateData(int numGames){
         this.numGames = numGames;
@@ -43,20 +43,20 @@ public class GenerateData {
 
                 //check if either is in checkmate or is stalemate
                 if(Runner.search.capitalIsInCheckmate(currentPos)) {
-                    //save result to ArrayList -> Lc Won = 1
-                    Long[] resultArr = {1l}; result.add(resultArr);
-                    break GAME_RUNNING;
-                }else if(Runner.search.lowerCaseIsInCheckmate(currentPos)){
-                    //save result to ArrayList -> Cap Won = 0
+                    //save result to ArrayList -> Lc Won = 0
                     Long[] resultArr = {0l}; result.add(resultArr);
                     break GAME_RUNNING;
-                }else if(Runner.search.lowerCaseIsInStalemate(currentPos) || Runner.search.capitalIsInStalemate(currentPos)){
-                    //save result to ArrayList -> Stalemate = 2
+                }else if(Runner.search.lowerCaseIsInCheckmate(currentPos)){
+                    //save result to ArrayList -> Cap Won = 2
                     Long[] resultArr = {2l}; result.add(resultArr);
                     break GAME_RUNNING;
+                }else if(Runner.search.lowerCaseIsInStalemate(currentPos) || Runner.search.capitalIsInStalemate(currentPos)){
+                    //save result to ArrayList -> Stalemate = 1
+                    Long[] resultArr = {1l}; result.add(resultArr);
+                    break GAME_RUNNING;
                 }else if(movesMade>stalemateNumMoves){
-                    //save result to ArrayList -> Stalemate = 2
-                    Long[] resultArr = {2l}; result.add(resultArr);
+                    //save result to ArrayList -> Stalemate = 1
+                    Long[] resultArr = {1l}; result.add(resultArr);
                     break GAME_RUNNING;
                 }
 
@@ -118,7 +118,7 @@ public class GenerateData {
                 saveResults(saveLocation);
                 System.out.println("=================== Saved Batch "+batchNum+" ============== " + gamesPlayed + "/" + numGames);
                 batchNum++;
-                loadResults(saveLocation);
+//                loadResults(saveLocation);
             }
         }
     }

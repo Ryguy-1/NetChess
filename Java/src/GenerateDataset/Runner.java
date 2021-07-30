@@ -1,6 +1,10 @@
 package GenerateDataset;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_ADDPeer;
 import sun.management.GarbageCollectionNotifInfoCompositeData;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Runner {
     public static MainBoard mainBoard;
@@ -15,7 +19,25 @@ public class Runner {
         checkValidConditions = new CheckValidConditions();
         controlAndSeparation = new BitboardControlAndSeparation();
         search = new Search();
-        generateData = new GenerateData(2000000);
+        generateData = new GenerateData(1000000);
+//        ArrayList<ArrayList<ArrayList<Long[]>>> loaded_arr = generateData.loadResults("ResultsZeroCentered\\results0.ser");
+//        for (int i = 0; i < loaded_arr.size(); i++) { // Each Game
+//            System.out.println("======================== Game " + i + " ===================================");
+//            for (int j = 0; j < loaded_arr.get(i).size(); j++) { // Each Board arraylist followed by arraylist with the result
+//                for (int k = 0; k < loaded_arr.get(i).get(0).size(); k++) { // Print out each game board
+//                    System.out.println("Move " + k);
+//                    System.out.println(loaded_arr.get(i).get(0).size());
+//                    Long[] thisBoard = loaded_arr.get(i).get(0).get(k);
+//                    mainBoard.drawGameBoard(thisBoard); // Draw Each Game Board
+//                }
+//                System.out.println("Result = " + loaded_arr.get(i).get(1).get(0)[0]);
+//
+//            }
+//        }
+
+
+
+
 //        mainBoard.drawGameBoard(mainBoard.mainPosition.getCurrentBoard());
 
 
