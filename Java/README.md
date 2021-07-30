@@ -7,7 +7,7 @@
 
 ![image](https://user-images.githubusercontent.com/20056414/127567823-7ce46299-7374-48d7-bcbb-94c0bf896867.png)
 ---------------------------------------------------------------------------------------
-3. Serializes the Data and Saves to "Results/" in batch size of 500.
+3. Serializes the Data and Saves to Results Folder in batch size of 500.
 
 ![image](https://user-images.githubusercontent.com/20056414/127567750-8f34ec69-4242-4370-8dc5-69bd3a58f766.png)
 ---------------------------------------------------------------------------------------
