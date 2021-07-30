@@ -39,29 +39,34 @@ public class GenerateData {
             ArrayList<Long[]> result = new ArrayList<>();
 
             char turn = 'c';
-            GAME_RUNNING: while(true) {
+            GAME_RUNNING:
+            while (true) {
 
                 //check if either is in checkmate or is stalemate
-                if(Runner.search.capitalIsInCheckmate(currentPos)) {
+                if (Runner.search.capitalIsInCheckmate(currentPos)) {
                     //save result to ArrayList -> Lc Won = 0
-                    Long[] resultArr = {0l}; result.add(resultArr);
+                    Long[] resultArr = {0l};
+                    result.add(resultArr);
                     break GAME_RUNNING;
-                }else if(Runner.search.lowerCaseIsInCheckmate(currentPos)){
+                } else if (Runner.search.lowerCaseIsInCheckmate(currentPos)) {
                     //save result to ArrayList -> Cap Won = 2
-                    Long[] resultArr = {2l}; result.add(resultArr);
+                    Long[] resultArr = {2l};
+                    result.add(resultArr);
                     break GAME_RUNNING;
-                }else if(Runner.search.lowerCaseIsInStalemate(currentPos) || Runner.search.capitalIsInStalemate(currentPos)){
+                } else if (Runner.search.lowerCaseIsInStalemate(currentPos) || Runner.search.capitalIsInStalemate(currentPos)) {
                     //save result to ArrayList -> Stalemate = 1
-                    Long[] resultArr = {1l}; result.add(resultArr);
+                    Long[] resultArr = {1l};
+                    result.add(resultArr);
                     break GAME_RUNNING;
-                }else if(movesMade>stalemateNumMoves){
+                } else if (movesMade > stalemateNumMoves) {
                     //save result to ArrayList -> Stalemate = 1
-                    Long[] resultArr = {1l}; result.add(resultArr);
+                    Long[] resultArr = {1l};
+                    result.add(resultArr);
                     break GAME_RUNNING;
                 }
 
                 //switch turn
-                switch(turn){
+                switch (turn) {
                     case 'c':
                         turn = 'l';
                         break;
@@ -76,7 +81,7 @@ public class GenerateData {
                 //save to ArrayList
                 boards.add(currentPos.getCurrentBoard());
 
-                if(movesMade%10000==0){
+                if (movesMade % 10000 == 0) {
 
                     System.out.println("Moves Made = " + movesMade);
                 }
@@ -84,7 +89,7 @@ public class GenerateData {
             }
 
             //switch turn
-            switch(turn){
+            switch (turn) {
                 case 'c':
                     turn = 'l';
                     break;
@@ -93,32 +98,36 @@ public class GenerateData {
                     break;
             }
 
-            ArrayList<ArrayList<Long[]>> game = new ArrayList<>();
-            game.add(boards); game.add(result);
-
-            //add the game with boards and result to the member variable
-            results.add(game);
-            gamesPlayed++;
-            //System.out.println("Games Played = " + gamesPlayed);
-            String winnerString = "";
-            if(result.get(0)[0] == 0){
-                winnerString = "Capital";
-            }else if(result.get(0)[0] == 1){
-                winnerString = "Lower Case";
-            }else{
-                winnerString = "Stalemate";
-            }
-
-            //System.out.println("Final Board: ===================== Winner = " + winnerString + ", Turn = " + turn);
-            //Runner.mainBoard.drawGameBoard(currentPos.getCurrentBoard());
+            if (result.get(0)[0] != 1) {
+                ArrayList<ArrayList<Long[]>> game = new ArrayList<>();
+                game.add(boards);
+                game.add(result);
 
 
-            if(gamesPlayed%numPerBatch==0 && gamesPlayed!=0){
-                String saveLocation = serialSaveVariable+batchNum+".ser";
-                saveResults(saveLocation);
-                System.out.println("=================== Saved Batch "+batchNum+" ============== " + gamesPlayed + "/" + numGames);
-                batchNum++;
+                //add the game with boards and result to the member variable
+                results.add(game);
+                gamesPlayed++;
+                //System.out.println("Games Played = " + gamesPlayed);
+                String winnerString = "";
+                if (result.get(0)[0] == 0) {
+                    winnerString = "Capital";
+                } else if (result.get(0)[0] == 1) {
+                    winnerString = "Lower Case";
+                } else {
+                    winnerString = "Stalemate";
+                }
+
+                //System.out.println("Final Board: ===================== Winner = " + winnerString + ", Turn = " + turn);
+                //Runner.mainBoard.drawGameBoard(currentPos.getCurrentBoard());
+
+
+                if (gamesPlayed % numPerBatch == 0 && gamesPlayed != 0) {
+                    String saveLocation = serialSaveVariable + batchNum + ".ser";
+                    saveResults(saveLocation);
+                    System.out.println("=================== Saved Batch " + batchNum + " ============== " + gamesPlayed + "/" + numGames);
+                    batchNum++;
 //                loadResults(saveLocation);
+                }
             }
         }
     }

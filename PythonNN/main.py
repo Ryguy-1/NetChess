@@ -31,7 +31,7 @@ class CustomDataset(Dataset):
         self.glob_batches()
 
         # TEMP FOR TESTING...
-        self.batch_locations = self.batch_locations[0:]
+        self.batch_locations = self.batch_locations[0:15]
 
         print(f'Number Batches = {len(self.batch_locations)}')
         # Unserialize Java Objects
@@ -76,7 +76,8 @@ class CustomDataset(Dataset):
                 datapoint = []
 
                 for k in range(len(self.unserialized_games[i][j])):
-                    if len(self.unserialized_games[i][j][k])==12: # Every once in while -> Error because len(bitboard array) == 1????? -> Need to figure out why
+                    # Every once in while -> Error because len(bitboard array) == 1????? -> Need to figure out why
+                    if len(self.unserialized_games[i][j][k])==12:
                         # Bitboards for Move
                         # Turn to Python Integers
                         python_integer_board = []
