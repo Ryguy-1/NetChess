@@ -14,11 +14,11 @@ public class GenerateData {
     //         games    boards for game/results
     private int numGames = 0;
 
-    private final int stalemateNumMoves = 300;
+    private final int stalemateNumMoves = 50;
 
     //private final static String serialLocation = "Results\\results.ser";
-    private final static String serialSaveVariable = "Results0-2\\results"; //add #.ser for save number (batch saves) // was "Results\\results"
-    private final int numPerBatch = 500; //was 500
+    private final static String serialSaveVariable = "Results50Moves\\results"; //add #.ser for save number (batch saves) // was "Results\\results"
+    private final int numPerBatch = 100; //was 500
 
     GenerateData(int numGames){
         this.numGames = numGames;
@@ -28,7 +28,7 @@ public class GenerateData {
     private void generate(){
         int gamesPlayed = 0;
         int batchNum = 0;
-        for (int i = 0; i < numGames; i++) {
+        while(gamesPlayed!=numGames){
             //Get New Board
             Position currentPos = Runner.mainBoard.mainPosition.getPositionCopy();
 
@@ -60,7 +60,7 @@ public class GenerateData {
                     break GAME_RUNNING;
                 } else if (movesMade > stalemateNumMoves) {
                     //save result to ArrayList -> Stalemate = 1
-                    Long[] resultArr = {1l};
+                    Long[] resultArr = {3l};
                     result.add(resultArr);
                     break GAME_RUNNING;
                 }
@@ -98,7 +98,7 @@ public class GenerateData {
                     break;
             }
 
-            if (result.get(0)[0] != 1) {
+            if (result.get(0)[0] != 3) {
                 ArrayList<ArrayList<Long[]>> game = new ArrayList<>();
                 game.add(boards);
                 game.add(result);
